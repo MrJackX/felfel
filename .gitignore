@@ -1,0 +1,39 @@
+# ─── Secrets & environment ───
+.env
+.env.txt
+.env.local
+*.env
+
+# ─── Database ───
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal
+*.db
+*.before_restore_*
+
+# ─── Python ───
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# ─── Logs ───
+*.log
+logs/
+
+# ─── IDE / OS / tools ───
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
