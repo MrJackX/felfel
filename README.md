@@ -45,10 +45,10 @@
 
 ## 🚀 نصب
 
+با یک دستور، نصب کامل و خودکار انجام می‌شود:
+
 ```bash
-git clone https://github.com/MrJackX/felfel.git
-cd felfel
-sudo bash install.sh
+sudo bash <(curl -sL https://raw.githubusercontent.com/MrJackX/felfel/main/install.sh)
 ```
 
 اسکریپت نصب به‌صورت **کاملاً خودکار**:

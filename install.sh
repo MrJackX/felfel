@@ -2,7 +2,12 @@
 # ──────────────────────────────────────────────────────────────
 #  اسکریپت نصب خودکار ربات فلفل (felfel)
 #  پشتیبانی: Ubuntu / Debian
-#  اجرا:  sudo bash install.sh
+#
+#  نصب تک‌خطی:
+#    bash <(curl -sL https://raw.githubusercontent.com/MrJackX/felfel/main/install.sh)
+#
+#  یا اگر از قبل clone کرده‌اید:
+#    sudo bash install.sh
 # ──────────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -11,26 +16,52 @@ info()  { echo -e "${GREEN}[+]${NC} $1"; }
 warn()  { echo -e "${YELLOW}[!]${NC} $1"; }
 err()   { echo -e "${RED}[x]${NC} $1" >&2; }
 
-# باید با دسترسی root اجرا شود
-if [[ $EUID -ne 0 ]]; then
-    err "لطفاً اسکریپت را با دسترسی root اجرا کنید:  sudo bash install.sh"
-    exit 1
-fi
-
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_URL="https://github.com/MrJackX/felfel.git"
+INSTALL_DIR="${FELFEL_DIR:-/opt/felfel}"
 SERVICE_NAME="felfel"
 PYTHON_BIN="python3"
-VENV_DIR="$PROJECT_DIR/.venv"
 CLI_PATH="/usr/local/bin/felfel"
 RUN_USER="${SUDO_USER:-root}"
 
-cd "$PROJECT_DIR"
+# باید با دسترسی root اجرا شود
+if [[ $EUID -ne 0 ]]; then
+    err "لطفاً اسکریپت را با دسترسی root اجرا کنید."
+    err "نصب تک‌خطی:  sudo bash <(curl -sL ${REPO_URL%.git}/raw/main/install.sh)"
+    exit 1
+fi
 
 echo -e "${CYAN}"
 echo "  ╔══════════════════════════════════════╗"
 echo "  ║        نصب ربات فلفل (felfel)        ║"
 echo "  ╚══════════════════════════════════════╝"
 echo -e "${NC}"
+
+# ─── git را زود نصب می‌کنیم (برای حالت تک‌خطی لازم است) ───
+if ! command -v git >/dev/null 2>&1; then
+    if command -v apt-get >/dev/null 2>&1; then
+        apt-get update -qq && apt-get install -y git >/dev/null
+    fi
+fi
+
+# ─── تشخیص محل پروژه؛ اگر پیدا نشد، خودش clone می‌کند ───
+if [[ -f "./bot.py" && -f "./requirements.txt" ]]; then
+    PROJECT_DIR="$(pwd)"
+elif SD="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)" && [[ -f "$SD/bot.py" ]]; then
+    PROJECT_DIR="$SD"
+else
+    # حالت تک‌خطی: پروژه را clone یا به‌روزرسانی می‌کنیم
+    if [[ -d "$INSTALL_DIR/.git" ]]; then
+        info "به‌روزرسانی پروژه در $INSTALL_DIR ..."
+        git -C "$INSTALL_DIR" pull --quiet
+    else
+        info "دریافت پروژه از گیت‌هاب در $INSTALL_DIR ..."
+        git clone --quiet "$REPO_URL" "$INSTALL_DIR"
+    fi
+    PROJECT_DIR="$INSTALL_DIR"
+fi
+
+VENV_DIR="$PROJECT_DIR/.venv"
+cd "$PROJECT_DIR"
 
 # ─── ۱) پیش‌نیازهای سیستمی ───
 info "نصب پیش‌نیازهای سیستمی..."
