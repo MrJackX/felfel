@@ -12,8 +12,17 @@
 ![aiogram](https://img.shields.io/badge/aiogram-3.x-2CA5E0?logo=telegram&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Linux-FCC624?logo=linux&logoColor=black)
 ![Status](https://img.shields.io/badge/Status-Active-success)
+![Panel](https://img.shields.io/badge/Panel-PasarGuard-orange)
 
 </div>
+
+---
+
+<table dir="rtl" width="100%">
+<tr><td>
+ℹ️ <b>توجه:</b> در حال حاضر این ربات فقط از پنل <bdi>PasarGuard</bdi> پشتیبانی می‌کند؛ پشتیبانی از پنل‌های دیگر در نسخه‌های بعدی اضافه خواهد شد.
+</td></tr>
+</table>
 
 ---
 
