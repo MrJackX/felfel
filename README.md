@@ -115,5 +115,5 @@ python bot.py
 فایل‌های `.env` و دیتابیس به‌صورت پیش‌فرض در `.gitignore` قرار دارند و منتشر نمی‌شوند. در صورت لو رفتن توکن، از طریق `/revoke` در [@BotFather](https://t.me/BotFather) توکن جدید بگیرید.
 
 <div align="center">
-<sub>ساخته‌شده با ❤️ توسط <a href="https://github.com/MrJackX">MrJackX</a></sub>
+<sub>Made with ❤️ by <a href="https://github.com/MrJackX">MrJackX</a></sub>
 </div>
